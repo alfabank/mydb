@@ -1,0 +1,24 @@
+### SublimeText ###
+*.sublime
+
+### IntelliJ ###
+*.iml
+*.ipr
+*.iws
+.idea/
+
+### OS generated files ###
+# mac
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+# win
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/

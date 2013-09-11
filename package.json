@@ -1,0 +1,26 @@
+{
+	"name": "mydb",
+	"version": "0.0.1",
+	"author": "Lev Rogozhin <lev@rogozhin.pro>",
+	"description": "Simple module for node.js that provide connection and querys using pool. MySQL only now.",
+	"contributors": [
+		{
+			"name": "Lev Rogozhin",
+			"email": "lev@rogozhin.pro"
+		}
+	],
+	"keywords": [
+		"db", "mysql"
+	],
+	"license": "Alfa.HUJ",
+	"repository": {
+		"type": "git",
+		"url": "git@dev.alfabank.ru:mydb"
+	},
+	"dependencies" : {
+		"mysql": "2.x"
+	},
+	"engines": {
+		"node": ">=0.10"
+	}
+}
