@@ -28,14 +28,29 @@ DB.prototype.getConnection = function (callback) {
 };
 
 DB.prototype.query = function (query, callback) {
+	var count = /SQL_CALC_FOUND_ROWS/.test(query);
 	this.getConnection(function(error, connection){
 		if (error) {
 			callback(error);
 			return;
 		}
 		connection.query(query, function(error, rows, fields){
-			callback.call(null, error, rows, fields);
-			connection.end();
+			if (count) {
+				connection.query('SELECT FOUND_ROWS() AS `count`', function(err, count){
+					if (err) {
+						callback.call(null, error, rows, fields);
+						return;
+					}
+					if (count && count[0]) {
+						fields.count = count[0].count;
+					}
+					callback.call(null, error, rows, fields);
+					connection.end();
+				});
+			} else {
+				callback.call(null, error, rows, fields);
+				connection.end();
+			}
 		});
 	});
 	return this;
