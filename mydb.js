@@ -35,7 +35,7 @@ DB.prototype.query = function (query, callback) {
 			return;
 		}
 		connection.query(query, function(error, rows, fields){
-			if (count) {
+			if (count && fields) {
 				connection.query('SELECT FOUND_ROWS() AS `count`', function(err, count){
 					if (err) {
 						callback.call(null, error, rows, fields);
