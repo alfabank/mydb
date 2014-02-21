@@ -1,6 +1,6 @@
 # myDB
 
-**Version 0.0.2**
+**Version 0.0.3**
 
 ## Purpose
 A node.js module that provide connection and query using pool. MySQL only now.
@@ -49,6 +49,9 @@ db.init('db-connect string').query(
 Method that provide connection. Must be called before all other. Can be called only once.
 
 For more information about *connectionSettings* take look at [mysql module doc](https://github.com/felixge/node-mysql#connection-options).
+
+### .end(callback)
+Final method for closing db pool.
 
 ### .getConnection(callback)
 This method get a connection from pool and return it into callback as a second parameter.

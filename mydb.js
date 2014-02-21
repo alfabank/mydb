@@ -18,6 +18,9 @@ DB.prototype.init = function (settings) {
 DB.prototype.__init = function () {
 	this.__dbPool = mysql.createPool(this.__dbSettings);
 };
+DB.prototype.end = function (callback) {
+	this.__dbPool.end(callback);
+}
 
 DB.prototype.getConnection = function (callback) {
 	if (this.__dbPool == undefined) {
@@ -44,12 +47,12 @@ DB.prototype.query = function (query, callback) {
 					if (count && count[0]) {
 						fields.count = count[0].count;
 					}
-					callback.call(null, error, rows, fields);
 					connection.end();
+					callback.call(null, error, rows, fields);
 				});
 			} else {
-				callback.call(null, error, rows, fields);
 				connection.end();
+				callback.call(null, error, rows, fields);
 			}
 		});
 	});
