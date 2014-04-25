@@ -37,9 +37,21 @@ DB.prototype.query = function (query, callback) {
 			callback(error);
 			return;
 		}
+		if (this.__dbSettings.timehunt) {
+			console.time('db-query');
+		}
 		connection.query(query, function(error, rows, fields){
+			if (this.__dbSettings.timehunt) {
+				console.timeEnd('db-query');
+			}
 			if (count && fields) {
+				if (this.__dbSettings.timehunt) {
+					console.time('db-query-count');
+				}
 				connection.query('SELECT FOUND_ROWS() AS `count`', function(err, count){
+					if (this.__dbSettings.timehunt) {
+						console.timeEnd('db-query-count');
+					}
 					if (err) {
 						callback.call(null, error, rows, fields);
 						return;
