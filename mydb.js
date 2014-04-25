@@ -31,25 +31,26 @@ DB.prototype.getConnection = function (callback) {
 };
 
 DB.prototype.query = function (query, callback) {
-	var count = /SQL_CALC_FOUND_ROWS/.test(query);
+	var self = this,
+		count = /SQL_CALC_FOUND_ROWS/.test(query);
 	this.getConnection(function(error, connection){
 		if (error) {
 			callback(error);
 			return;
 		}
-		if (this.__dbSettings.timehunt) {
+		if (self.__dbSettings.timehunt) {
 			console.time('db-query');
 		}
 		connection.query(query, function(error, rows, fields){
-			if (this.__dbSettings.timehunt) {
+			if (self.__dbSettings.timehunt) {
 				console.timeEnd('db-query');
 			}
 			if (count && fields) {
-				if (this.__dbSettings.timehunt) {
+				if (self.__dbSettings.timehunt) {
 					console.time('db-query-count');
 				}
 				connection.query('SELECT FOUND_ROWS() AS `count`', function(err, count){
-					if (this.__dbSettings.timehunt) {
+					if (self.__dbSettings.timehunt) {
 						console.timeEnd('db-query-count');
 					}
 					if (err) {
