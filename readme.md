@@ -1,6 +1,6 @@
 # myDB
 
-**Version 0.0.3**
+**Version 0.0.4**
 
 ## Purpose
 A node.js module that provide connection and query using pool. MySQL only now.
@@ -66,6 +66,9 @@ If connection error will occurred then only error will be passed.
 __Note:__ number of matched rows will be rturned as _count_ in _fields_ argument.
 
 ## Changelog
+
+### 0.0.4
+Fixed bug with non ending connections.
 
 ### 0.0.2
 Added count of matched rows if SQL_CALC_FOUND_ROWS presented in select query.

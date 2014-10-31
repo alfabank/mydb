@@ -60,11 +60,11 @@ DB.prototype.query = function (query, callback) {
 					if (count && count[0]) {
 						fields.count = count[0].count;
 					}
-					connection.end();
+					connection.destroy();
 					callback.call(null, error, rows, fields);
 				});
 			} else {
-				connection.end();
+				connection.destroy();
 				callback.call(null, error, rows, fields);
 			}
 		});
