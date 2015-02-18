@@ -1,6 +1,6 @@
 {
 	"name": "mydb",
-	"version": "0.0.1",
+	"version": "0.0.4",
 	"author": "Lev Rogozhin <lev@rogozhin.pro>",
 	"description": "Simple module for node.js that provide connection and querys using pool. MySQL only now.",
 	"contributors": [
