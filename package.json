@@ -1,6 +1,6 @@
 {
 	"name": "mydb",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"author": "Lev Rogozhin <lev@rogozhin.pro>",
 	"description": "Simple module for node.js that provide connection and querys using pool. MySQL only now.",
 	"contributors": [
@@ -12,7 +12,7 @@
 	"keywords": [
 		"db", "mysql"
 	],
-	"license": "Alfa.HUJ",
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git@dev.alfabank.ru:mydb"
