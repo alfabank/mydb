@@ -49,7 +49,7 @@ class Db {
 					connection.query(query, (err, rows, fields) => {
 						if (err) {
 							connection.destroy();
-							reject(err);
+							return reject(err);
 						}
 
 						resolve({ connection, rows, fields });
