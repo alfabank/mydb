@@ -16,6 +16,10 @@ class Db {
 		return this;
 	}
 
+	escapeData(data) {
+		return this._dbPool.escape(data);
+	}
+
 	end() {
 		return new Promise((resolve) => this._dbPool.end(() => resolve()));
 	}
@@ -45,19 +49,18 @@ class Db {
 					connection.query(query, (err, rows, fields) => {
 						if (err) {
 							connection.destroy();
-							return reject(err);
+							reject(err);
 						}
 
-						resolve(connection, rows, fields);
-					})
+						resolve({ connection, rows, fields });
+					});
 				});
-				
 			});
 
 		if (isCount) {
-			queue = queue.then((connection, rows, fields) => {
+			queue = queue.then(({ connection, rows, fields }) => {
 				if (!fields) {
-					return Promise.resolve(rows, fields);
+					return Promise.resolve({ rows, fields });
 				}
 
 				return new Promise((resolve, reject) => {
@@ -71,15 +74,16 @@ class Db {
 							fields.count = count[0].count;
 						}
 
-						return Promise.resolve(connection, rows, fields);
+						resolve({ connection, rows, fields });
 					});
 				});
 			});
 		}
 
-		return queue.then((connection, rows, fields) => {
+		return queue.then(({ connection, rows, fields }) => {
 			connection.destroy();
-			return Promise.resolve(rows, fields);
+
+			return Promise.resolve({ rows, fields });
 		});
 	}
 }
