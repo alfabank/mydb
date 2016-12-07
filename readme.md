@@ -1,6 +1,6 @@
 # myDB
 
-**Version 0.0.5**
+**Version 0.1.0**
 
 ## Purpose
 A node.js module that provide connection and query using pool. MySQL only now.
@@ -31,15 +31,12 @@ function output (data) {
 	console.log(data);
 }
 
-db.init('db-connect string').query(
-	"SELECT 1 AS first_col, 2 AS second_col",
-	function(error, rows, fields){
-		if (error) {
-			output();
-			return;
-		}
+db.init('db-connect string');
+db.query('SELECT 1 AS first_col, 2 AS second_col')
+	.then(({ rows, fields }) => {
 		output(rows.length ? rows : null);
-	}
+	})
+	.catch(err => throw new Error(err));
 );
 ```
 
@@ -50,22 +47,27 @@ Method that provide connection. Must be called before all other. Can be called o
 
 For more information about *connectionSettings* take look at [mysql module doc](https://github.com/felixge/node-mysql#connection-options).
 
-### .end(callback)
-Final method for closing db pool.
+### .end()
+Final method for closing db pool. Return promise.
 
-### .getConnection(callback)
+### .getConnection()
 This method get a connection from pool and return it into callback as a second parameter.
-First parameter is for errors if occurred.
+First parameter is for errors if occurred. Return promise with connection.
 
-### .query(query, callback)
+### .query(query)
 This method provide simply query to db. It used .getConnection for getting connection and do query after that.
 
 *callback* must accept three args like this (error, rows, fields).
 If connection error will occurred then only error will be passed.
 
+Return promise with `{ rows, fields }`.
+
 __Note:__ number of matched rows will be rturned as _count_ in _fields_ argument.
 
 ## Changelog
+
+### 0.1.0
+Rebuild with Promise.
 
 ### 0.0.5
 Update MySQL module.
