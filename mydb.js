@@ -48,7 +48,7 @@ class Db {
 				return new Promise((resolve, reject) => {
 					connection.query(query, (err, rows, fields) => {
 						if (err) {
-							connection.destroy();
+							connection.release();
 							return reject(err);
 						}
 
@@ -66,7 +66,7 @@ class Db {
 				return new Promise((resolve, reject) => {
 					connection.query('SELECT FOUND_ROWS() AS `count`', (err, count) => {
 						if (err) {
-							connection.destroy();
+							connection.release();
 							return reject(err);
 						}
 
@@ -81,7 +81,7 @@ class Db {
 		}
 
 		return queue.then(({ connection, rows, fields }) => {
-			connection.destroy();
+			connection.release();
 
 			return Promise.resolve({ rows, fields });
 		});
