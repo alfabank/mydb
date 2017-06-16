@@ -1,6 +1,6 @@
 # myDB
 
-**Version 0.1.0**
+**Version 0.1.1**
 
 ## Purpose
 A node.js module that provide connection and query using pool. MySQL only now.
